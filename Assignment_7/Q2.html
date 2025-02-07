@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FizzBuzz Game</title>
+</head>
+<body>
+  <h1>FizzBuzz Game</h1>
+  <p>Click the button below to print numbers from 1 to 50 with FizzBuzz rules.</p>
+  
+  <button onclick="playFizzBuzz()">Play FizzBuzz</button>
+
+  <h2>Custom Divisibility Rules:</h2>
+  <form id="custom-rules">
+    <label for="divisibleBy3">Divisible by 3: </label>
+    <input type="text" id="divisibleBy3" value="Fizz">
+    <br><br>
+    <label for="divisibleBy5">Divisible by 5: </label>
+    <input type="text" id="divisibleBy5" value="Buzz">
+    <br><br>
+    <label for="divisibleBy3And5">Divisible by both 3 and 5: </label>
+    <input type="text" id="divisibleBy3And5" value="FizzBuzz">
+    <br><br>
+    <button type="button" onclick="playFizzBuzz(true)">Apply Custom Rules</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script>
+    function playFizzBuzz(custom = false) {
+      let divisibleBy3 = custom ? document.getElementById("divisibleBy3").value : "Fizz";
+      let divisibleBy5 = custom ? document.getElementById("divisibleBy5").value : "Buzz";
+      let divisibleBy3And5 = custom ? document.getElementById("divisibleBy3And5").value : "FizzBuzz";
+      let output = '';
+
+      for (let i = 1; i <= 50; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+          output += divisibleBy3And5 + "<br>";
+        } else if (i % 3 === 0) {
+          output += divisibleBy3 + "<br>";
+        } else if (i % 5 === 0) {
+          output += divisibleBy5 + "<br>";
+        } else {
+          output += i + "<br>";
+        }
+      }
+
+      document.getElementById("output").innerHTML = output;
+    }
+  </script>
+</body>
+</html>
