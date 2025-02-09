@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find and Remove Duplicates</title>
+</head>
+<body>
+
+    <h2>Find Duplicates and Remove Them</h2>
+    <label for="arrayInput">Enter numbers separated by commas:</label>
+    <input type="text" id="arrayInput" placeholder="e.g., 1, 2, 3, 2, 4, 5, 1">
+    <button onclick="processArray()">Process</button>
+
+    <h3>Results:</h3>
+    <p>Duplicate Values: <span id="duplicates"></span></p>
+    <p>Unique Array: <span id="uniqueArray"></span></p>
+
+    <script>
+        function findDuplicates(arr) {
+            let duplicates = [];
+            let seen = new Set();
+            let found = new Set();
+
+            for (let num of arr) {
+                if (seen.has(num) && !found.has(num)) {
+                    duplicates.push(num);
+                    found.add(num);
+                }
+                seen.add(num);
+            }
+
+            return duplicates;
+        }
+
+        function removeDuplicates(arr) {
+            return [...new Set(arr)];
+        }
+
+        function processArray() {
+            let input = document.getElementById("arrayInput").value.trim();
+            if (!input) {
+                alert("Please enter numbers.");
+                return;
+            }
+
+            let array = input.split(",").map(num => num.trim());
+            let duplicates = findDuplicates(array);
+            let uniqueArray = removeDuplicates(array);
+
+            document.getElementById("duplicates").innerText = duplicates.length ? duplicates.join(", ") : "No duplicates found";
+            document.getElementById("uniqueArray").innerText = uniqueArray.join(", ");
+        }
+    </script>
+
+</body>
+</html>

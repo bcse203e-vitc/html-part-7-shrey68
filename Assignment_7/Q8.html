@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Sorting Algorithm</title>
+</head>
+<body>
+
+    <h2>Sort an Array (Without Using .sort())</h2>
+    <label for="arrayInput">Enter numbers separated by commas:</label>
+    <input type="text" id="arrayInput" placeholder="e.g., 10, 5, 8, 1, 12">
+    <button onclick="processArray('asc')">Sort Ascending</button>
+    <button onclick="processArray('desc')">Sort Descending</button>
+
+    <h3>Results:</h3>
+    <p>Sorted Array: <span id="sortedArray"></span></p>
+
+    <script>
+        function bubbleSort(arr, order = "asc") {
+            let n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    let shouldSwap = order === "asc" ? arr[j] > arr[j + 1] : arr[j] < arr[j + 1];
+                    if (shouldSwap) {
+                        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]; // Swap values
+                    }
+                }
+            }
+            return arr;
+        }
+        function processArray(order) {
+            let input = document.getElementById("arrayInput").value.trim();
+            if (!input) {
+                alert("Please enter numbers.");
+                return;
+            }
+
+            let array = input.split(",").map(num => parseFloat(num.trim())).filter(num => !isNaN(num));
+            let sortedArray = bubbleSort(array, order);
+
+            document.getElementById("sortedArray").innerText = sortedArray.join(", ");
+        }
+    </script>
+
+</body>
+</html>

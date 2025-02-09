@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word & Character Counter</title>
+</head>
+<body>
+
+    <h2>Text Analyzer</h2>
+    <textarea id="inputText" rows="5" cols="50" placeholder="Type or paste your text here..."></textarea>
+    <br>
+    <button onclick="analyzeText()">Analyze</button>
+
+    <h3>Results:</h3>
+    <p>Character Count: <span id="charCount">0</span></p>
+    <p>Word Count: <span id="wordCount">0</span></p>
+    <h3>Highlighted Repeated Words:</h3>
+    <p id="highlightedText"></p>
+
+    <script>
+        function analyzeText() {
+            let text = document.getElementById("inputText").value.trim();
+            
+            document.getElementById("charCount").innerText = text.length;
+
+            let words = text.match(/\b\w+\b/g) || [];
+            document.getElementById("wordCount").innerText = words.length;
+
+            let wordMap = new Map();
+            words.forEach(word => {
+                let lowerWord = word.toLowerCase();
+                wordMap.set(lowerWord, (wordMap.get(lowerWord) || 0) + 1);
+            });
+
+            let highlightedText = text.replace(/\b\w+\b/g, function(match) {
+                return wordMap.get(match.toLowerCase()) > 1 ? `<mark>${match}</mark>` : match;
+            });
+
+            document.getElementById("highlightedText").innerHTML = highlightedText;
+        }
+    </script>
+
+</body>
+</html>
